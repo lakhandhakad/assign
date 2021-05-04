@@ -15,4 +15,10 @@ select C.CNUM,C.CNAME,C.CITY,C.RATING,C.SNUM,O.ODATE from Customers C,Orders O w
 select sum(AMT),ODATE,max(AMT) from Orders group by ODATE having sum(AMT)>(max(AMT)+2000);
 select * from Orders having (select min(AMT) from Orders where ODATE="1990/10/06")<AMT;
 
+select C.CNUM,C.CNAME,S.SNUM from Salespeople S,Customers C where S.SNAME="Serres" having C.CNUM-S.SNUM>1000;
 
+select SNAME,ODATE,O.SNUM, max(AMT) from Orders O,Salespeople S where O.SNUM=S.SNUM AND AMT>5000 group by O.SNUM,ODATE ;
+select SNUM,max(AMT),ODATE from Orders where ODATE="1990/10/03" GROUP BY SNUM;
+
+SELECT * FROM Customers WHERE RATING>200;
+SELECT COUNT(DISTINCT(SNUM)) NO_OF_SALESPEOPLE FROM Orders ;
