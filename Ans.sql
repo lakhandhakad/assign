@@ -26,4 +26,18 @@ SELECT C.CNAME,S.SNAME,S.COMM FROM Customers C,Salespeople S WHERE S.COMM>12 AND
 SELECT COUNT(C.SNUM) NO_OF_CUSTOMERS,S.SNUM,S.SNAME,S.CITY FROM Salespeople S,Customers C WHERE  C.SNUM=S.SNUM GROUP BY C.SNUM HAVING COUNT(C.SNUM)>1;
 SELECT DISTINCT  S.SNUM,S.SNAME,S.CITY FROM Salespeople S,Customers C WHERE C.CITY=S.CITY AND S.SNUM=C.SNUM;
 SELECT *FROM Salespeople WHERE SNAME LIKE "P%%%L%";
+select * from Orders where CNUM=(select CNUM from Customers where CNAME"Cisneros");
 
+select * from Salespeople order by SNUM;select * from Salespeople order by SNAME;select * from Salespeople order by COMM;select * from Salespeople order by CITY;
+select * from Customers where CNAME between "A%" AND "G%";
+
+select * from Orders where AMT>(select avg(AMT) from Orders where ODATE="1990/10/04" group by ODATE);
+
+select sum(AMT),ODATE from Orders group by ODATE order by sum(AMT) DESC;
+select RATING,CNAME from Customers where CITY="Sanjose";
+select * from Orders where AMT<(select max(O.AMT) from Orders O,Customers C where C.CNUM=O.CNUM AND C.CITY="Sanjose");
+
+elect distinct MAX(RATING),CITY from Customers group by CITY;
+
+select COunt(CNUM) from Customers where RATING>(select AVG(RATING) from Customers where CITY="Sanjose");
+select * from Salespeople where CITY="Barcelona" or CITY="London";
