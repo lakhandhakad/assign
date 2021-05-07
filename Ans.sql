@@ -41,3 +41,14 @@ elect distinct MAX(RATING),CITY from Customers group by CITY;
 
 select COunt(CNUM) from Customers where RATING>(select AVG(RATING) from Customers where CITY="Sanjose");
 select * from Salespeople where CITY="Barcelona" or CITY="London";
+select S.SNAME,C.SNUM,count(C.SNUM) No_Of_Customers from Customers C,Salespeople S where S.SNUM=C.SNUM group by SNUM having count(C.SNUM)=1;
+
+select * from Orders where AMT>1000;
+select O.ONUM,O.AMT,O.ODATE,C.CNUM,C.CNAME,C.CITY from Orders O,Customers C where O.CNUM=C.CNUM;
+select * from Customers where RATING>=(select min(RATING) from Customers where SNUM=(select SNUM from Salespeople where SNAME="serres"));
+select * from Orders where ODATE="1990/10/03" OR ODATE="1990/10/04";
+select * from Customers where RATING>(select max(RATING) from Customers where CITY="ROME");
+select * from Customers where RATING>100 or CITY="ROME";
+select * from Customers where SNUM=1001;
+
+
