@@ -6,7 +6,7 @@ select distinct(O.SNUM),SNAME from Orders O,Salespeople S Where O.SNUM=S.SNUM;
 Select CNAME,SNAME from Customers C,Salespeople S where C.SNUM=S.SNUM;
 select S.SNAME,count(*) As No_Of_CUST from Salespeople S,Customers C where S.SNUM=C.SNUM group by S.SNUM having count(*)>1;
 select S.SNAME,count(*) from Orders O,Salespeople S where O.SNUM=S.SNUM group by O.SNUM order by count(*) desc;
-
+select * from Customers where exists(select count(CNUM) from Customers where CITY="Sanjose");
 select S.SNAME,S.CITY,C.CNAME from Salespeople S,Customers C where S.CITY=C.CITY Order by C.CNAME;
 select CNAME,RATING,CITY from Customers where CITY="SanJose" having RATING>200;
 select SNAME,COMM from Salespeople where CITY="London";
@@ -20,7 +20,7 @@ select C.CNUM,C.CNAME,S.SNUM from Salespeople S,Customers C where S.SNAME="Serre
 select SNAME,ODATE,O.SNUM, max(AMT) from Orders O,Salespeople S where O.SNUM=S.SNUM AND AMT>3000 group by O.SNUM,ODATE ;
 select SNUM,max(AMT),ODATE from Orders where ODATE="1990/10/03" GROUP BY SNUM;
 
-SELECT * FROM Customers WHERE RATING>200;
+SELECT CNAME,RATING FROM Customers WHERE RATING>200;
 SELECT COUNT(DISTINCT(SNUM)) NO_OF_SALESPEOPLE FROM Orders ;
 SELECT C.CNAME,S.SNAME,S.COMM FROM Customers C,Salespeople S WHERE S.COMM>12 AND C.SNUM=S.SNUM;
 SELECT COUNT(C.SNUM) NO_OF_CUSTOMERS,S.SNUM,S.SNAME,S.CITY FROM Salespeople S,Customers C WHERE  C.SNUM=S.SNUM GROUP BY C.SNUM HAVING COUNT(C.SNUM)>1;
@@ -50,5 +50,9 @@ select * from Orders where ODATE="1990/10/03" OR ODATE="1990/10/04";
 select * from Customers where RATING>(select max(RATING) from Customers where CITY="ROME");
 select * from Customers where RATING>100 or CITY="ROME";
 select * from Customers where SNUM=1001;
+select SNUM,sum(AMT) from Orders group by SNUM having sum(AMT)>(Select max(AMT) from Orders);
 
+
+select SNAME,COMM from Salespeople;
+select CNAME,CITY from Customers where RATING=(Select RATING from Customers where CNAME="Hoffman" );
 
