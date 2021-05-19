@@ -1,24 +1,24 @@
-select * from Salespeople;
-select CNAME,RATING from Customers where RATING=100;
-select SNAME,ODATE,max(AMT) from Orders O,Salespeople S where O.SNUM=S.SNUM group by O.SNUM,ODATE;
-Select  * from Orders order by  CNUM DESC;
-select distinct(O.SNUM),SNAME from Orders O,Salespeople S Where O.SNUM=S.SNUM;
-Select CNAME,SNAME from Customers C,Salespeople S where C.SNUM=S.SNUM;
-select S.SNAME,count(*) As No_Of_CUST from Salespeople S,Customers C where S.SNUM=C.SNUM group by S.SNUM having count(*)>1;
-select S.SNAME,count(*) from Orders O,Salespeople S where O.SNUM=S.SNUM group by O.SNUM order by count(*) desc;
-select * from Customers where exists(select count(CNUM) from Customers where CITY="Sanjose");
-select S.SNAME,S.CITY,C.CNAME from Salespeople S,Customers C where S.CITY=C.CITY Order by C.CNAME;
+/*Listing out all the column of Salespeople */	select * from Salespeople;
+/*Listing out the customers whose rating is 100*/	select CNAME,RATING from Customers where RATING=100;
+/*selecting the largest order for each salespeople on each date*/	select SNAME,ODATE,max(AMT) from Orders O,Salespeople S where O.SNUM=S.SNUM group by O.SNUM,ODATE;
+/*Traversing the orders table in descending order in respect to the cnum*/	Select  * from Orders order by  CNUM DESC;
+/*Listing out the salespeople who currently have orders in Orders table*/	select distinct(O.SNUM),SNAME from Orders O,Salespeople S Where O.SNUM=S.SNUM;
+/*selecting salespeople with their customers whome they are serving*/	Select CNAME,SNAME from Customers C,Salespeople S where C.SNUM=S.SNUM;
+/*Selecting names and numbers of salespeople who have more than one customers*/	select S.SNAME,S.SNUM,count(*) As No_Of_CUST from Salespeople S,Customers C where S.SNUM=C.SNUM group by S.SNUM having count(*)>1;
+/* Counting the orders for each salespeople and ordering them in descending order*/	select S.SNAME,count(*) from Orders O,Salespeople S where O.SNUM=S.SNUM group by O.SNUM order by count(*) desc;
+/*Traversing the customers table if and only if there exist a customer who resides in Sanjose*/	select * from Customers where exists(select count(CNUM) from Customers where CITY="Sanjose");
+/*Matching Salespeople with customers according to city they live in*/	select S.SNAME,S.CITY,C.CNAME from Salespeople S,Customers C where S.CITY=C.CITY Order by S.SNAME;
 select CNAME,RATING,CITY from Customers where CITY="SanJose" having RATING>200;
 select SNAME,COMM from Salespeople where CITY="London";
-select ONUM,AMT,ODATE,CNUM,SNUM from Orders  where SNUM=(select SNUM from Salespeople where SNAME="Motika");
+select ONUM,AMT,ODATE from Orders  where SNUM=(select SNUM from Salespeople where SNAME="Motika");
 select C.CNAME,O.ODATE As Ordered_On from Customers C,Orders O where (O.ODATE="1990/10/03" AND C.CNUM=O.CNUM);
-select sum(AMT),ODATE,max(AMT) from Orders group by ODATE having sum(AMT)>(max(AMT)+2000);
+select sum(AMT),ODATE from Orders group by ODATE having sum(AMT)>(max(AMT)+2000);
 select ONUM,AMT,ODATE from Orders having (select min(AMT) from Orders where ODATE="1990/10/06")<AMT;
 
 select C.CNUM,C.CNAME,S.SNUM from Salespeople S,Customers C where S.SNAME="Serres" having C.CNUM-S.SNUM=1000;
 
-select SNAME,ODATE,O.SNUM, max(AMT) from Orders O,Salespeople S where O.SNUM=S.SNUM AND AMT>3000 group by O.SNUM,ODATE ;
-select SNUM,max(AMT),ODATE from Orders where ODATE="1990/10/03" GROUP BY SNUM;
+select SNUM,ODATE,max(AMT) from Orders group by SNUM,ODATE having max(AMT)>3000;
+select SNUM,max(AMT) As Largest_Order,ODATE As Order_date from Orders where ODATE="1990/10/03" GROUP BY SNUM;
 
 SELECT CNAME,RATING FROM Customers WHERE RATING>200;
 SELECT COUNT(DISTINCT(SNUM)) NO_OF_SALESPEOPLE FROM Orders ;
